@@ -1,6 +1,6 @@
 package router;
 
-import builder.routeType.FileNotFound;
+import router.routeType.FileNotFound;
 import router.csvMapBuilder.HtAccessMapBuilder;
 import router.csvMapBuilder.RouteMapBuilder;
 
@@ -15,14 +15,17 @@ public class RouterMapBuilder {
   private File publicDirectoryFullPath;
   private DefaultHashMap routerMap;
 
-  public DefaultHashMap buildFrom(File workingDirectory, String publicDirectory, String routesFilePath, String htAccessFilePath) throws IOException {
-    publicDirectoryFullPath = new File(workingDirectory, publicDirectory);
-    File routesFile = new File(workingDirectory, routesFilePath);
-    File htAccessFile = new File(workingDirectory, htAccessFilePath);
+  public DefaultHashMap buildFrom(HashMap<String, String> serverConfig) throws IOException {
+    File workingDirectory = new File(serverConfig.get("workingDirectoryPath"));
+    publicDirectoryFullPath = new File(workingDirectory, serverConfig.get("publicDirectoryPath"));
+    File routesFile = new File(workingDirectory, serverConfig.get("routesFilePath"));
+    File htAccessFile = new File(workingDirectory, serverConfig.get("htAccessFilePath"));
     routerMap = getDefaultHashMap();
+
     putPublicDirectoryFiles(publicDirectoryFullPath);
     putRoutes(routesFile);
     putRedirects(htAccessFile);
+
     return routerMap;
   }
 

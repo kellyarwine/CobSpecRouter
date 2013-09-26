@@ -1,6 +1,7 @@
 package router;
 
-import builder.routeType.RouteType;
+import router.routeType.RouteType;
+import http.SystemRouter;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,12 +9,12 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Router {
+public class Router implements SystemRouter {
   private DefaultHashMap routerMap;
   private File routeFile;
 
-  public Router(File workingDirectory, String publicDirectory, String routesFilePath, String htAccessFilePath) throws IOException {
-    routerMap = new RouterMapBuilder().buildFrom(workingDirectory, publicDirectory, routesFilePath, htAccessFilePath);
+  public void getRouterMap(HashMap<String, String> serverConfig) throws IOException {
+    routerMap = new RouterMapBuilder().buildFrom(serverConfig);
   }
 
   public byte[] getResponse(HashMap request) throws IOException, ParseException {

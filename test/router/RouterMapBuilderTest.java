@@ -1,20 +1,19 @@
 package router;
 
 import builder.Templater;
-import builder.routeType.Directory;
-import builder.routeType.FileNotFound;
-import builder.routeType.Public;
-import builder.routeType.Redirect;
+import router.routeType.Directory;
+import router.routeType.FileNotFound;
+import router.routeType.Public;
+import router.routeType.Redirect;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import router.DefaultHashMap;
-import router.RouterMapBuilder;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -31,7 +30,7 @@ public class RouterMapBuilderTest {
     publicDirectoryFullPath = new File(workingDirectory, "test/public/");
     new Templater().copyTemplatesToDisk("/builder/templates/templates.zip", publicDirectoryFullPath);
     RouterMapBuilder routerMapBuilder = new RouterMapBuilder();
-    actualResult = routerMapBuilder.buildFrom(workingDirectory, "test/public/", "test/routes.csv", "test/.htaccess");
+    actualResult = routerMapBuilder.buildFrom(getServerConfig(workingDirectory));
   }
 
   @After
@@ -356,5 +355,17 @@ public class RouterMapBuilderTest {
       }
     }
     directory.delete();
+  }
+
+  private HashMap getServerConfig(File workingDirectory) {
+    HashMap<String, String> serverConfig = new HashMap<String, String>();
+    serverConfig.put("port", "5000");
+    serverConfig.put("publicDirectoryPath", "test/public/");
+    serverConfig.put("env", "production");
+    serverConfig.put("routesFilePath", "test/routes.csv");
+    serverConfig.put("htAccessFilePath", "test/.htaccess");
+    serverConfig.put("workingDirectoryPath", workingDirectory.toString());
+    serverConfig.put("mockRequestsFilePath", "");
+    return serverConfig;
   }
 }

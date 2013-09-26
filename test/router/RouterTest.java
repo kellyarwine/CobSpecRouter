@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import router.Router;
 
 import java.io.*;
 import java.text.ParseException;
@@ -29,7 +28,8 @@ public class RouterTest {
   public void setUp() throws IOException {
     File workingDirectory = new File(new File(System.getProperty("user.dir")).getParent(), "Server");
     publicDirectory = new File(workingDirectory, "test/public/");
-    router = new Router(workingDirectory, "test/public/", "test/routes.csv", "test/.htaccess");
+    router = new Router();
+    router.getRouterMap(getServerConfig(workingDirectory));
     new Templater().copyTemplatesToDisk("/builder/templates/templates.zip", publicDirectory);
   }
 
@@ -223,5 +223,17 @@ public class RouterTest {
         + "Content-type: text/html; charset=UTF-8\r\n"
         + "Content-length: 0\r\n"
         + "Location: http://localhost:5000/hi_everyone.html\r\n\r\n").getBytes();
+  }
+
+  private HashMap getServerConfig(File workingDirectory) {
+    HashMap<String, String> serverConfig = new HashMap<String, String>();
+    serverConfig.put("port", "5000");
+    serverConfig.put("publicDirectoryPath", "test/public/");
+    serverConfig.put("env", "production");
+    serverConfig.put("routesFilePath", "test/routes.csv");
+    serverConfig.put("htAccessFilePath", "test/.htaccess");
+    serverConfig.put("workingDirectoryPath", workingDirectory.toString());
+    serverConfig.put("mockRequestsFilePath", "");
+    return serverConfig;
   }
 }
