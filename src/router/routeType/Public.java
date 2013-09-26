@@ -1,7 +1,7 @@
 package router.routeType;
 
 import builder.httpMethod.HttpMethod;
-import builder.routeType.HttpMethodMapBuilder;
+import builder.httpMethod.HttpMethodMapBuilder;
 
 import java.io.File;
 import java.io.IOException;
