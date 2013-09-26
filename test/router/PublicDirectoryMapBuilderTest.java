@@ -1,8 +1,8 @@
 package router;
 
 import builder.Templater;
-import builder.routeType.Directory;
-import builder.routeType.Public;
+import router.routeType.Directory;
+import router.routeType.Public;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

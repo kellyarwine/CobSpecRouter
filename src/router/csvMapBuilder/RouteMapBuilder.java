@@ -1,6 +1,6 @@
 package router.csvMapBuilder;
 
-import builder.routeType.RouteTypeFactory;
+import router.routeType.RouteTypeFactory;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package router.csvMapBuilder;
 
-import builder.routeType.Redirect;
+import router.routeType.Redirect;
 import org.junit.Test;
 
 import java.io.File;

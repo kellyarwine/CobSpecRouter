@@ -1,7 +1,7 @@
 package router;
 
-import builder.routeType.Directory;
-import builder.routeType.Public;
+import router.routeType.Directory;
+import router.routeType.Public;
 
 import java.io.File;
 import java.io.IOException;

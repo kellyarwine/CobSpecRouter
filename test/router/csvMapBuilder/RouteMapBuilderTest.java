@@ -1,6 +1,6 @@
 package router.csvMapBuilder;
 
-import builder.routeType.Public;
+import router.routeType.Public;
 import org.junit.Test;
 
 import java.io.File;
