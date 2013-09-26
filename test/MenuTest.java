@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
-public class MainTest {
+public class MenuTest {
   private String NEW_LINE = "\r\n";
   private File inputWorkingDirectoryFullPath;
   private File workingDirectoryFullPath;
@@ -42,8 +42,8 @@ public class MainTest {
     input.add("start -e not_production_and_not_test");
     input.add("exit");
     Io mockIo = new MockIo(input);
-    Menu main = new Menu();
-    main.display(mockIo);
+    Menu menu = new Menu();
+    menu.display(mockIo);
     String expectedResult =
         "Ninja Server Menu\n"
             + "----------------------\n"
@@ -59,8 +59,8 @@ public class MainTest {
     input.add("start -w not_a_valid_working_directory");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
-    Menu main = new Menu();
-    main.display(mockIo);
+    Menu menu = new Menu();
+    menu.display(mockIo);
     String expectedResult =
         "Ninja Server Menu\n"
             + "----------------------\n"
@@ -76,8 +76,8 @@ public class MainTest {
     input.add("start -d not_a_valid_public_directory");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
-    Menu main = new Menu();
-    main.display(mockIo);
+    Menu menu = new Menu();
+    menu.display(mockIo);
     String expectedResult =
         "Ninja Server Menu\n"
             + "----------------------\n"
@@ -93,8 +93,8 @@ public class MainTest {
     input.add("start -r not_a_valid_routes_file");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
-    Menu main = new Menu();
-    main.display(mockIo);
+    Menu menu = new Menu();
+    menu.display(mockIo);
     String expectedResult =
         "Ninja Server Menu\n"
             + "----------------------\n"
@@ -110,8 +110,8 @@ public class MainTest {
     input.add("start -h not_a_valid_htaccess_file");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
-    Menu main = new Menu();
-    main.display(mockIo);
+    Menu menu = new Menu();
+    menu.display(mockIo);
     String expectedResult =
         "Ninja Server Menu\n"
             + "----------------------\n"
@@ -127,8 +127,8 @@ public class MainTest {
     input.add("start -m not_a_valid_mock_requests_file");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
-    Menu main = new Menu();
-    main.display(mockIo);
+    Menu menu = new Menu();
+    menu.display(mockIo);
     String expectedResult =
         "Ninja Server Menu\n"
             + "----------------------\n"
@@ -144,8 +144,8 @@ public class MainTest {
     input.add("start -e test");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
-    Menu main = new Menu();
-    main.display(mockIo);
+    Menu menu = new Menu();
+    menu.display(mockIo);
     String expectedResult =
         "Ninja Server Menu\n"
             + "----------------------\n"
@@ -162,9 +162,9 @@ public class MainTest {
     input.add("status");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
-    Menu main = new Menu();
+    Menu menu = new Menu();
     createMockRequestsTsv();
-    main.display(mockIo);
+    menu.display(mockIo);
     System.out.println(readLog());
     assertTrue(readLog().contains("Ninja Server Menu\n"));
     assertTrue(readLog().contains("----------------------\n"));
@@ -180,8 +180,8 @@ public class MainTest {
     input.add("stop");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
-    Menu main = new Menu();
-    main.display(mockIo);
+    Menu menu = new Menu();
+    menu.display(mockIo);
     String expectedResult =
         "Ninja Server Menu\n"
             + "----------------------\n"
@@ -198,8 +198,8 @@ public class MainTest {
     input.add("status");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
-    Menu main = new Menu();
-    main.display(mockIo);
+    Menu menu = new Menu();
+    menu.display(mockIo);
     String expectedResult =
         "Ninja Server Menu\n"
             + "----------------------\n"
@@ -215,8 +215,8 @@ public class MainTest {
     input.add("status");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
-    Menu main = new Menu();
-    main.display(mockIo);
+    Menu menu = new Menu();
+    menu.display(mockIo);
     String expectedResult =
         "Ninja Server Menu\n"
             + "----------------------\n"
@@ -233,8 +233,8 @@ public class MainTest {
     input.add("status");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
-    Menu main = new Menu();
-    main.display(mockIo);
+    Menu menu = new Menu();
+    menu.display(mockIo);
     String expectedResult =
         "Ninja Server Menu\n"
             + "----------------------\n"
@@ -250,8 +250,8 @@ public class MainTest {
     input.add("this is not how one should start the server");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
-    Menu main = new Menu();
-    main.display(mockIo);
+    Menu menu = new Menu();
+    menu.display(mockIo);
     String expectedResult =
         "Ninja Server Menu\n"
             + "----------------------\n"
@@ -294,8 +294,8 @@ public class MainTest {
     input.add("help");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
-    Menu main = new Menu();
-    main.display(mockIo);
+    Menu menu = new Menu();
+    menu.display(mockIo);
     String expectedResult =
         "Ninja Server Menu\n"
             + "----------------------\n"
@@ -339,8 +339,8 @@ public class MainTest {
     input.add("start -p 5001");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
-    Menu main = new Menu();
-    main.display(mockIo);
+    Menu menu = new Menu();
+    menu.display(mockIo);
     String expectedResult =
         "Ninja Server Menu\n"
             + "----------------------\n"
@@ -357,8 +357,8 @@ public class MainTest {
     input.add("start -p this_is_not_a_number");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
-    Menu main = new Menu();
-    main.display(mockIo);
+    Menu menu = new Menu();
+    menu.display(mockIo);
     String expectedResult =
           "Ninja Server Menu\n"
         + "----------------------\n"
