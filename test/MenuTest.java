@@ -156,6 +156,25 @@ public class MenuTest {
   }
 
   @Test
+  public void exitServer() throws Exception {
+    ArrayList<String> input = new ArrayList<String>();
+    input.add("start -e test -m mock_requests.tsv");
+    input.add("stop");
+    input.add("exit");
+    MockIo mockIo = new MockIo(input);
+    Menu menu = new Menu();
+    createMockRequestsTsv();
+    menu.display(mockIo);
+
+//    assertEquals(expectedResult, readLog());
+    assertTrue(readLog().contains("Ninja Server Menu\n"));
+    assertTrue(readLog().contains("----------------------\n"));
+    assertTrue(readLog().contains("Type \"help\" to see a list of available commands.\n"));
+    assertTrue(readLog().contains("Ninja Server has been shut down.\n"));
+    assertTrue(readLog().contains("Ninja Server is not currently running.\n"));
+  }
+
+  @Test
   public void startServerWithCustomConfigs() throws Exception {
     ArrayList<String> input = new ArrayList<String>();
     input.add("start -p 4999 -e test -d public/ -r routes.csv -h .htaccess -m mock_requests.tsv -w " + inputWorkingDirectoryFullPath);
@@ -165,7 +184,6 @@ public class MenuTest {
     Menu menu = new Menu();
     createMockRequestsTsv();
     menu.display(mockIo);
-    System.out.println(readLog());
     assertTrue(readLog().contains("Ninja Server Menu\n"));
     assertTrue(readLog().contains("----------------------\n"));
     assertTrue(readLog().contains("Type \"help\" to see a list of available commands.\n"));
@@ -174,39 +192,23 @@ public class MenuTest {
   }
 
   @Test
-  public void exitServer() throws Exception {
-    ArrayList<String> input = new ArrayList<String>();
-    input.add("start");
-    input.add("stop");
-    input.add("exit");
-    MockIo mockIo = new MockIo(input);
-    Menu menu = new Menu();
-    menu.display(mockIo);
-    String expectedResult =
-        "Ninja Server Menu\n"
-            + "----------------------\n"
-            + "Type \"help\" to see a list of available commands.\n"
-            + "Ninja Server has been shut down.\n"
-            + "Ninja Server is not currently running.\n";
-    assertEquals(expectedResult, readLog());
-  }
-
-  @Test
   public void startServerDisplayStatus() throws Exception {
     ArrayList<String> input = new ArrayList<String>();
-    input.add("start -p 5002 -e production");
+    input.add("start -p 5002 -e test -m mock_requests.tsv");
     input.add("status");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
     Menu menu = new Menu();
+    createMockRequestsTsv();
     menu.display(mockIo);
-    String expectedResult =
-        "Ninja Server Menu\n"
-            + "----------------------\n"
-            + "Type \"help\" to see a list of available commands.\n"
-            + "Ninja Server is running on port 5002.\n"
-            + "Ninja Server has been shut down.\n";
-    assertEquals(expectedResult, readLog());
+
+//    assertEquals(expectedResult, readLog());
+    assertTrue(readLog().contains("Ninja Server Menu\n"));
+    assertTrue(readLog().contains("----------------------\n"));
+    assertTrue(readLog().contains("Type \"help\" to see a list of available commands.\n"));
+    assertTrue(readLog().contains("Ninja Server is running on port 5002.\n"));
+    assertTrue(readLog().contains("Ninja Server has been shut down.\n"));
+
   }
 
   @Test
@@ -229,19 +231,20 @@ public class MenuTest {
   @Test
   public void startServerWithDefaultConfigurations() throws Exception {
     ArrayList<String> input = new ArrayList<String>();
-    input.add("start");
+    input.add("start -e test -m mock_requests.tsv");
     input.add("status");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
     Menu menu = new Menu();
+    createMockRequestsTsv();
     menu.display(mockIo);
-    String expectedResult =
-        "Ninja Server Menu\n"
-            + "----------------------\n"
-            + "Type \"help\" to see a list of available commands.\n"
-            + "Ninja Server is running on port 5000.\n"
-            + "Ninja Server has been shut down.\n";
-    assertEquals(expectedResult, readLog());
+
+//    assertEquals(expectedResult, readLog());
+    assertTrue(readLog().contains("Ninja Server Menu\n"));
+    assertTrue(readLog().contains("----------------------\n"));
+    assertTrue(readLog().contains("Type \"help\" to see a list of available commands.\n"));
+    assertTrue(readLog().contains("Ninja Server is running on port 5000.\n"));
+    assertTrue(readLog().contains("Ninja Server has been shut down.\n"));
   }
 
   @Test
@@ -390,42 +393,6 @@ public class MenuTest {
   }
 
   private void createMockRequestsTsv() throws IOException {
-    createMockRequestsFile();
-    String requestString = createMockRequestsString();
-    FileOutputStream fos = new FileOutputStream(mockRequestsFile, true);
-    OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fos, "utf-8");
-    Writer writer = new BufferedWriter(outputStreamWriter);
-    writer.append(requestString);
-    writer.close();
-  }
-
-  private String createMockRequestsString() {
-    String mockRequests = "";
-    mockRequests += simpleRootRequest();
-    mockRequests += "\t";
-    mockRequests += simpleRootRequest();
-
-    return mockRequests;
-  }
-
-  private void createMockRequestsFile() throws IOException {
     mockRequestsFile.createNewFile();
-  }
-
-  public String simpleRootRequest() {
-    String requestHeader =
-        "GET / HTTP/1.1\r\n"
-            + "Host: localhost:5000\r\n"
-            + "Connection: keep-alive\r\n"
-            + "Content-Length: 15\r\n"
-            + "Cache-Control: max-age=0\r\n"
-            + "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n"
-            + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36\r\n"
-            + "Accept-Encoding: gzip,deflate,sdch\r\n"
-            + "Accept-Language: en-US,en;q=0.8\r\n"
-            + "Cookie: textwrapon=false; wysiwyg=textarea\r\n";
-    String requestBody =
-        "";
-    return requestHeader + NEW_LINE + requestBody;
   }
 }
