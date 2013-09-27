@@ -58,6 +58,7 @@ public class Menu {
     ExecutorService serverThreadPool = Executors.newFixedThreadPool(cores);
     serverRunnable = new ServerRunnable(serverConfig, router);
     serverThreadPool.submit(serverRunnable);
+    serverThreadPool.shutdown();
   }
 
   public void status() throws IOException {

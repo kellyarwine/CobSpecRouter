@@ -174,7 +174,7 @@ public class MenuTest {
   }
 
   @Test
-  public void stopServer() throws Exception {
+  public void exitServer() throws Exception {
     ArrayList<String> input = new ArrayList<String>();
     input.add("start");
     input.add("stop");
@@ -194,7 +194,7 @@ public class MenuTest {
   @Test
   public void startServerDisplayStatus() throws Exception {
     ArrayList<String> input = new ArrayList<String>();
-    input.add("start -p 5002");
+    input.add("start -p 5002 -e production");
     input.add("status");
     input.add("exit");
     MockIo mockIo = new MockIo(input);
