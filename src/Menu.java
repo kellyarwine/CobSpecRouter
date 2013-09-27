@@ -58,6 +58,7 @@ public class Menu {
     ExecutorService serverThreadPool = Executors.newFixedThreadPool(cores);
     serverRunnable = new ServerRunnable(serverConfig, router);
     serverThreadPool.submit(serverRunnable);
+    waitForServerStartup();
     serverThreadPool.shutdown();
   }
 
@@ -75,6 +76,11 @@ public class Menu {
     }
     else
       io.out("Ninja Server is not currently running.");
+  }
+
+  private void waitForServerStartup() {
+    while (!serverRunnable.isReady) {
+    }
   }
 
   private boolean setAndValidateServerConfig(String serverConfigString) throws IOException {
